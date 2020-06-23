@@ -277,3 +277,280 @@ To track an empty folder add `.gitkeep` file inside that folder. Then add the fo
 **Step 2 :** Add `.gitkeep` file inside accounts folder.  
 **Step 3 :** Run `git add accounts/`  
 **Step 4 :** `git commit -m "Track accounts directory"`
+
+## **To find ancestry commits**
+
+### To find parent of HEAD
+HEAD will be pointing to final commit.
+
+ `git show HEAD^`  
+
+ `git show HEAD~` or `git show HEAD~1`
+
+### To find grandparent of head
+
+ `git show HEAD^^`  
+
+ `git show HEAD~2`
+
+### To find great grandparent of head
+
+ `git show HEAD^^^`  
+
+ `git show HEAD~3`
+
+
+### To find parent of a commit
+
+ `git show <SHA>^`  
+
+ `git show <SHA>~` or `git show <SHA>~1`
+
+ **eg :-**
+
+ `git show deff01qw^`  
+
+ `git show deff01qw~` or `git show deff01qw~1`
+
+## **Tree listing**
+
+```
+ git ls-tree HEAD
+``` 
+ This will list the directories and files at the point of latest commit where the head is pointing to.
+
+## **Filtering commit log**
+
+`git commit -3` :- Shows the last 3 commits.
+
+`git commit --since=2020-06-01` :- Show every commits from that date (yyyy-mm-dd).
+
+`git log --until=2020-06-21` :- Shows every commit untill that date.
+
+`git log --author="<author name>"` :- Shows all the commits made by that author.
+
+`git log --until="3 hours ago"` :- Shows commits made untill 3 hours ago.
+
+`git log --until="3 days ago"` :- Shows commits made untill 3 days ago.
+
+`git log --grep="<regular expression>"` :- Shows commit matches that regular expression.
+
+`git log --grep="<commit message>"` :- Shows commits that matches the commit message.
+
+`git log <file name>` :- Shows all the commits made of that file. ( `git log course.html` )
+
+`git log <SHA>..<SHA>` :- Shows all the commits inbetween the SHA(commit id) value.  
+
+For more run the command `git help log` .
+
+## **To list the branches**
+
+```
+ git branches
+```
+
+## **To create a branch**
+
+```
+ git branch <branch name>
+```
+
+A branch name can contain only letters, numbers and underscore ( `_` ).
+
+## **To switch branch**
+
+```
+ git checkout <branch name>
+```
+
+## **To create and switch new branch**
+
+```
+ git checkout -b <branch name>
+```
+
+This will create a new branch and swich the HEAD to that branch.
+
+
+## **Compare branches**
+
+```
+ git diff <branch 1>..<branch 2>
+```
+
+## **To see the branches that are merged**
+
+```
+ git branch --merged
+```
+
+`git branch --no-merged` :- this will show the branches that are not merged.
+
+## **Renaming the branch**
+
+When we are in a branch and we want to rename current branch then,
+
+```
+ git branch -m <newbranch>
+```
+
+If we are in a branch and we want to rename another branch then,
+
+```
+ git branch -m <oldbranch> <newbranch>
+```
+
+## **Delete branches**
+
+```
+ git branch -d <branchname>
+```
+
+## **Reset branches**
+
+### **Soft reset**
+
+ - Moves the head pointer.
+ - Does not change the staging index.
+ - Does not change the working directory.
+
+```
+ git reset --soft <tree-ish>
+```
+
+Soft reset is most useful when we want back thing up in the commit timeline and then recommit it again.
+
+### **Mixed reset**
+
+ - Moves the head pointer.
+ - Changes staging index to match the repository.
+ - Does not change the working directory.
+ - Default choice. If we use `git reset` without `--mixed` it does the same thing.
+
+```
+ git reset --mixed <tree-ish>
+```
+
+### **Hard reset**
+
+ - Moves the head pointer.
+ - Changes staging index to match the repository.
+ - Changes working directory to match the repository.
+
+```
+ git reset --hard <tree-ish>
+```
+
+## **Merge code**
+
+If we are on the branch that we want to recieve it then,
+
+```
+ git merge <branch name>
+```
+
+eg:- If we want to merge branch1 to master branch, then first go to the master branch `git checkout master` and then `git merge branch1`.
+
+## **Save changes in the stash**
+
+```
+ git stach save "<stash name>"
+```
+
+## **View stached changes**
+
+```
+ git stash list
+```
+
+This will show the list of stash that we made.
+
+### To see the stat of perticular stash
+
+`git stash show stash@{0}` :- Here stash@{ `0` } is the the stash position. Run `git stat list` to list the stash and to get the position of a perticular stash.
+
+### To see the code changes of a perticular stash
+
+`git stash show -p stash@{0}` :- Here stash@{ `0` } is the the stash position. Run `git stat list` to list the stash and to get the position of a perticular stash.
+
+## **Retrieve stashed changes**
+
+```
+ git shash pop stash@{0}
+```
+
+```
+ git shash pop stash@{0}
+```
+
+Here stash@{ `0` } is the the stash position. Run `git stat list` to list the stash and to get the position of a perticular stash.
+
+If there is only one stash then simply run `git stash pop` or `git stash apply`
+
+ - `pop` : Applies to the working directory and removes from stash list.
+ - `apply` :  Applies to the working directory but does not removes from stash list.
+
+## **Delete stashed changes**
+
+```
+ git stash drop stash@{0}
+```
+
+Here stash@{ `0` } is the the stash position. Run `git stat list` to list the stash and to get the position of a perticular stash.
+
+If there is only one stash then simply run `git stash drop`.
+
+If there are multiple shash in the stash list and we want to delete everything the run `git stash clear` .
+
+## **Remote branch**
+
+### To see remote branch
+
+`git branch -r`
+
+
+### To see remote branch and local branch 
+
+`git branch -a`
+
+## **Pushing changes to the remote repository**
+
+If we are pushing the changes for the first time or if our branch is not tracked,
+
+```
+ git push -u origin master
+```
+
+Here -u tells to track the local branch with remote branch. In this case local branch master with remote branch master.  
+
+Once our branch is tracked then, `git push` . If we cloned the repository using git clone then it will be tracked by default.
+
+## **Fetch changes from remote repository**
+
+```
+git fetch
+```
+
+If we have more than one remote branch the we have to specify it, for eg: `git fetch origin` .
+
+## **Merge in fetched changes**
+
+```
+ git merge origin/master
+```
+
+## **git pull**
+
+The combination of fetching and merging is pull.
+
+`git pull` =  `git fetch` + `git merge`
+
+## **Delete a remote branch**
+
+```
+git push origin --delete <branch name>
+```
+
+We can also do `git push origin :<branch name>` to delete a remote branch.
+
+Both of the above command will delete the tracking branch as wll as remote branch, but we will have that branch in our local repository. 
