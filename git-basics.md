@@ -271,7 +271,7 @@ Now in `.gitignore` file add `.vscode/settings.json` and then commit it.
 
 To track an empty folder add `.gitkeep` file inside that folder. Then add the folder to staging area and then commit.
 
-** eg:- **
+**eg:-**
 
 **Step 1 :** Create accounts folder.  
 **Step 2 :** Add `.gitkeep` file inside accounts folder.  
